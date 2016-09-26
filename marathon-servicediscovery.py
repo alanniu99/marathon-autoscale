@@ -6,13 +6,20 @@ import json
 import math
 import time
 
-marathon_host = input("Enter the DNS hostname or IP of your Marathon Instance : ")
-marathon_app = input("Enter the Marathon Application Name to Configure Autoscale for from the Marathon UI : ")
-max_mem_percent = int(input("Enter the Max percent of Mem Usage averaged across all Application Instances to trigger Autoscale (ie. 80) : "))
-max_cpu_time = int(input("Enter the Max percent of CPU Usage averaged across all Application Instances to trigger Autoscale (ie. 80) : "))
-trigger_mode = input("Enter which metric(s) to trigger Autoscale ('and', 'or') : ")
-autoscale_multiplier = float(input("Enter Autoscale multiplier for triggered Autoscale (ie 1.5) : "))
-max_instances = int(input("Enter the Max instances that should ever exist for this application (ie. 20) : "))
+# marathon_host = input("Enter the DNS hostname or IP of your Marathon Instance : ")
+# marathon_app = input("Enter the Marathon Application Name to Configure Autoscale for from the Marathon UI : ")
+# max_mem_percent = int(input("Enter the Max percent of Mem Usage averaged across all Application Instances to trigger Autoscale (ie. 80) : "))
+# max_cpu_time = int(input("Enter the Max percent of CPU Usage averaged across all Application Instances to trigger Autoscale (ie. 80) : "))
+# trigger_mode = input("Enter which metric(s) to trigger Autoscale ('and', 'or') : ")
+# autoscale_multiplier = float(input("Enter Autoscale multiplier for triggered Autoscale (ie 1.5) : "))
+# max_instances = int(input("Enter the Max instances that should ever exist for this application (ie. 20) : "))
+marathon_host = sys.argv[1]
+marathon_app = sys.argv[2]
+max_mem_percent = int(sys.argv[3])
+max_cpu_time = int(sys.argv[4])
+trigger_mode = sys.argv[5]
+autoscale_multiplier = float(sys.argv[6])
+max_instances = int(sys.argv[7])
 
 class marathon(object):
 

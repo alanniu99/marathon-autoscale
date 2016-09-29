@@ -1,5 +1,6 @@
 __author__ = 'tkraus'
 
+import argparse
 import sys
 import requests
 import json
@@ -13,14 +14,39 @@ import time
 # trigger_mode = input("Enter which metric(s) to trigger Autoscale ('and', 'or') : ")
 # autoscale_multiplier = float(input("Enter Autoscale multiplier for triggered Autoscale (ie 1.5) : "))
 # max_instances = int(input("Enter the Max instances that should ever exist for this application (ie. 20) : "))
-marathon_host = sys.argv[1]
-marathon_app = sys.argv[2]
-max_mem_percent = int(sys.argv[3])
-max_cpu_time = int(sys.argv[4])
-trigger_mode = sys.argv[5]
-autoscale_multiplier = float(sys.argv[6])
-max_instances = int(sys.argv[7])
+marathon_host = ""
+marathon_app = ""
+max_mem_percent = 85
+max_cpu_time = 85
+trigger_mode = "or"
+autoscale_multiplier = 1
+max_instances = 4
 
+def parse_cli_args():
+    p = argparse.ArgumentParser(description="Marathon Autoscaler")
+    p.add_argument("--marathon-host", dest="marathon_host", type=str,
+                   required=True, help="FQDN or IP of the Marathon host (without the http://).")
+    p.add_argument("--marathon-app", dest="marathon_app", type=str,
+                   required=True, help="Name of the Marathon App without the "/" to configure autoscale on")
+    p.add_argument("--max-mem-percent", dest="max_mem_percent", type=str,
+                   required=False, default="85", help="Trigger percentage of Avg Mem Utilization across all tasks for the target Marathon App before scaleout is triggered.")
+    p.add_argument("--max-cpu-time ", dest="max_cpu_time ", type=str,
+                   required=False, default="85", help="Trigger Avg CPU time across all tasks for the target Marathon App before scaleout is triggered.")
+    p.add_argument("--trigger-mode", dest="trigger_mode", type=str,
+                   required=False, default="or", help="'both' or 'and' determines whether both cpu and mem must be triggered or just one or the other.")
+    p.add_argument("--autoscale-multiplier ", dest="autoscale_multiplier ", type=str,
+                   required=False, default="1.5", help="The number that current instances will be multiplied against to decide how many instances to add during a scaleout operation.")
+    p.add_argument("--max-instances", dest="max_instances", type=str,
+                   required=False, default="4",  help="The Ceiling for number of instances to stop scaling out EVEN if thresholds are crossed.")
+    args = p.parse_args()
+    marathon_host = args.marathon_host
+    marathon_app = args.marathon_app
+    max_mem_percent = int(args.max_mem_percent)
+    max_cpu_time = int(args.max_mem_percent)
+    trigger_mode = args.trigger_mode
+    autoscale_multiplier = float(args.autoscale_multiplier)
+    max_instances = int(args.max_instances)
+    
 class Marathon(object):
 
     def __init__(self, marathon_host):
@@ -91,6 +117,7 @@ def timer():
 
 if __name__ == "__main__":
     print ("This application tested with Python3 only")
+    parse_cli_args()
     running=1
     while running == 1:
         # Initialize the Marathon object

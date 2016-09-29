@@ -27,7 +27,7 @@ def parse_cli_args():
     p.add_argument("--marathon-host", dest="marathon_host", type=str,
                    required=True, help="FQDN or IP of the Marathon host (without the http://).")
     p.add_argument("--marathon-app", dest="marathon_app", type=str,
-                   required=True, help="Name of the Marathon App without the "/" to configure autoscale on")
+                   required=True, help="Name of the Marathon App without the '/' to configure autoscale on")
     p.add_argument("--max-mem-percent", dest="max_mem_percent", type=str,
                    required=False, default="85", help="Trigger percentage of Avg Mem Utilization across all tasks for the target Marathon App before scaleout is triggered.")
     p.add_argument("--max-cpu-time ", dest="max_cpu_time ", type=str,

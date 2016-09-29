@@ -45,7 +45,7 @@ def parse_cli_args():
     global max_cpu_time
     global trigger_mode
     global autoscale_multiplier
-    max_instances
+    global max_instances
     marathon_host = args.marathon_host
     marathon_app = args.marathon_app
     max_mem_percent = int(args.max_mem_percent)

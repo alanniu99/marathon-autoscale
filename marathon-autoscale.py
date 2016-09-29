@@ -19,7 +19,7 @@ marathon_app = ""
 max_mem_percent = 85
 max_cpu_time = 85
 trigger_mode = "or"
-autoscale_multiplier = 1
+autoscale_multiplier = 1.5
 max_instances = 4
 
 def parse_cli_args():

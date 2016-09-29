@@ -39,9 +39,14 @@ def parse_cli_args():
     p.add_argument("--max-instances", dest="max_instances", type=str,
                    required=False, default="4",  help="The Ceiling for number of instances to stop scaling out EVEN if thresholds are crossed.")
     args = p.parse_args()
-   
+    global marathon_host
+    global marathon_app
+    global max_mem_percent
+    global max_cpu_time
+    global trigger_mode
+    global autoscale_multiplier
+    max_instances
     marathon_host = args.marathon_host
-    print(marathon_host)
     marathon_app = args.marathon_app
     max_mem_percent = int(args.max_mem_percent)
     max_cpu_time = int(args.max_mem_percent)
@@ -123,7 +128,7 @@ if __name__ == "__main__":
     running=1
     while running == 1:
         # Initialize the Marathon object
-        print(marathon_host)
+      
         aws_marathon = Marathon(marathon_host)
         # Call get_all_apps method for new object created from aws_marathon class and return all apps
         marathon_apps = aws_marathon.get_all_apps()

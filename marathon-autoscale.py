@@ -30,11 +30,11 @@ def parse_cli_args():
                    required=True, help="Name of the Marathon App without the '/' to configure autoscale on")
     p.add_argument("--max-mem-percent", dest="max_mem_percent", type=str,
                    required=False, default="85", help="Trigger percentage of Avg Mem Utilization across all tasks for the target Marathon App before scaleout is triggered.")
-    p.add_argument("--max-cpu-time ", dest="max_cpu_time ", type=str,
+    p.add_argument("--max-cpu-time ", dest="max_cpu_time", type=str,
                    required=False, default="85", help="Trigger Avg CPU time across all tasks for the target Marathon App before scaleout is triggered.")
     p.add_argument("--trigger-mode", dest="trigger_mode", type=str,
                    required=False, default="or", help="'both' or 'and' determines whether both cpu and mem must be triggered or just one or the other.")
-    p.add_argument("--autoscale-multiplier ", dest="autoscale_multiplier ", type=str,
+    p.add_argument("--autoscale-multiplier ", dest="autoscale_multiplier", type=str,
                    required=False, default="1.5", help="The number that current instances will be multiplied against to decide how many instances to add during a scaleout operation.")
     p.add_argument("--max-instances", dest="max_instances", type=str,
                    required=False, default="4",  help="The Ceiling for number of instances to stop scaling out EVEN if thresholds are crossed.")

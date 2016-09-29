@@ -1,6 +1,7 @@
 FROM python:3.4.5-alpine
-
-
+RUN apk update && \
+    apk upgrade && \
+    apk add --update autoconf gcc
 COPY marathon-autoscale.py requirements.txt /app/
 RUN pip3 install -r /app/requirements.txt
 ENV max-mem-percent "85"
